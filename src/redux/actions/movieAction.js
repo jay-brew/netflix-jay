@@ -7,7 +7,17 @@ function getMovies(){
         const topRatedApi = api.get(`/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
         const upComingApi = api.get(`/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`);
 
-        let [popularMovies, topRatedMovies, upcomingMovies] = await Promise.all([popularMovieApi,topRatedApi,upComingApi])
+        let [popularMovies, topRatedMovies, upcomingMovies] = await Promise.all([popularMovieApi,topRatedApi,upComingApi]);
+
+        dispatch({
+            type : "GET_MOVIES_SUCCESS",
+            payload : {
+                popularMovies:popularMovies.data,
+                topRatedMovies:topRatedMovies.data,
+                upcomingMovies:upcomingMovies.data
+            }
+        })
+
         console.log("popularMovies: ", popularMovies);
         console.log("topRatedMovies: ", topRatedMovies);
         console.log("upcomingMovies: ", upcomingMovies);
