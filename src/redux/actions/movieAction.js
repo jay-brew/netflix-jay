@@ -18,9 +18,6 @@ function getMovies(){
             }
         })
 
-        console.log("popularMovies: ", popularMovies);
-        console.log("topRatedMovies: ", topRatedMovies);
-        console.log("upcomingMovies: ", upcomingMovies);
     }
 }
 

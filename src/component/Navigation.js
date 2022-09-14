@@ -15,8 +15,8 @@ const Navigation = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Link to="/" className='ncv-item'>Home</Link>
-            <Link to="/movies" className='ncv-item'>Movies</Link>
+            <Link to="/" className='nav-item'>Home</Link>
+            <Link to="/movies" className='nav-item'>Movies</Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
