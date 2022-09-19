@@ -7,9 +7,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const Home = () => {
   const dispatch = useDispatch();
+  // 불러오기
   const {popularMovies, topRatedMovies, upcomingMovies, loading} = useSelector(state=>state.movie);
-  console.log("home : ", popularMovies)
+  console.log("popularMovies : ", popularMovies);
 
+  // 최초 화면 load 시에 리렌더링 발생시키기
   useEffect(()=>{
     dispatch(movieAction.getMovies());
   },[]);
@@ -20,9 +22,9 @@ const Home = () => {
 
   return (
     <div>
-      <Banner movie={popularMovies.results[3]}/>
+      <Banner movie={popularMovies.results[0]}/>
       <h1>Popular Movies</h1>
-      <MovieSlide movies={popularMovies} />
+      <MovieSlide movies={popularMovies}/>
       <h1>TopRated Movies</h1>
       <MovieSlide movies={topRatedMovies} />
       <h1>Upcoming Movies</h1>

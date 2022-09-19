@@ -6,7 +6,6 @@ let initialState = {
     loading:true
 };
 
-
 function movieReducer(state = initialState, action){
     let {type, payload} = action;
     switch(type) {

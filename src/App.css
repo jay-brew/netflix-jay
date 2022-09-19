@@ -14,6 +14,7 @@ body {
   height: 600px;
   display: flex;
   align-items: center;
+  background-size: cover;
 }
 
 .banner::before{
@@ -32,6 +33,7 @@ body {
 }
 
 .card{
+  cursor: pointer;
   width : 300px;
   height: 200px !important;
   border: 3px solid red !important;
@@ -46,4 +48,42 @@ body {
 
 .card:hover .overlay{
   opacity: 1;
+}
+
+.main_movieDetail{
+  /* 가로정렬 */
+  z-index: 1;
+  display: flex; 
+  justify-content: center;
+  width: 100%;
+}
+
+.movieDetail_info{
+  width : 300px !important;
+  height: 450px;
+  width: 45%;
+  z-index: 1;
+  margin: 0px 20px 0px 20px;
+
+}
+
+.movieDetail_card{
+  width : 300px;
+  height: 450px;
+  border: 3px solid red !important;
+  z-index: 1;
+}
+
+.movieDetail_review{
+  margin: 5%;
+}
+
+.reviewBox{
+  border: 3px solid red;
+  padding: 2%;
+}
+
+.realtedMovieBox{
+  display: flex;
+  width: 500px;
 }
