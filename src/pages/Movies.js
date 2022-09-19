@@ -29,11 +29,15 @@ const Movies = () => {
       }
       setShowPageNum(updateShowPageNum);
     } else if(nextPrevText === '>>') {
+      const totalStartNum = totalPageNum-totalPageNum%showPageNum.length+1
+      for(let i=totalStartNum; i<totalPageNum+1; i++){
+        updateShowPageNum.push(i)
+      }
+      setShowPageNum(updateShowPageNum);
       
     } else if(nextPrevText === '<') {
       const firstNum = showPageNum[0];
       if(firstNum !== 1) {
-        console.log(firstNum)
         for(let i=firstNum-5; i<firstNum; i++){
           updateShowPageNum.push(i)
         }
@@ -41,6 +45,7 @@ const Movies = () => {
       }
     } else {
       // <<
+      setShowPageNum([1,2,3,4,5]);
     }
   }
 
