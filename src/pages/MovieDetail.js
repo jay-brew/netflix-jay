@@ -130,23 +130,23 @@ const MovieDetail = () => {
         }
       </div>
       <>
-      <Button variant="primary" onClick={handleShow}>
-        영화 예고편 보기
-      </Button>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Body>
-          <Example />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        <Button variant="primary" onClick={handleShow}>
+          영화 예고편 보기
+        </Button>
+        <Modal show={show} onHide={handleClose} size="lg">
+          <Modal.Body>
+            <Example />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
     </div>
   )
 }

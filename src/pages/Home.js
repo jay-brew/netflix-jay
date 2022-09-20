@@ -9,7 +9,6 @@ const Home = () => {
   const dispatch = useDispatch();
   // 불러오기
   const {popularMovies, topRatedMovies, upcomingMovies, loading} = useSelector(state=>state.movie);
-  console.log("popularMovies : ", popularMovies);
 
   // 최초 화면 load 시에 리렌더링 발생시키기
   useEffect(()=>{
