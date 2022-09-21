@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { movieAction } from '../redux/actions/movieAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Banner from '../component/Banner';
@@ -6,13 +6,13 @@ import MovieSlide from '../component/MovieSlide';
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Home = () => {
+  const [movieVedioApi, setMovieVedioApi] = useState("");
   const dispatch = useDispatch();
-  // 불러오기
   const {popularMovies, topRatedMovies, upcomingMovies, loading} = useSelector(state=>state.movie);
 
-  // 최초 화면 load 시에 리렌더링 발생시키기
   useEffect(()=>{
     dispatch(movieAction.getMovies());
+    setMovieVedioApi('')
   },[]);
 
   if(loading){
@@ -21,6 +21,7 @@ const Home = () => {
 
   return (
     <div>
+      {/* Banner 와 MovieSlide 컴포넌트를 사용, 그리고 movie 와 movies라는 props를 생성*/}
       <Banner movie={popularMovies.results[1]}/>
       <h1>Popular Movies</h1>
       <MovieSlide movies={popularMovies}/>

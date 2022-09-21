@@ -23,7 +23,6 @@ const Movies = () => {
   const getMovieApi = async() => {
     // const searchApi = api.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`);
     // let [searchMovies] = await Promise.all([searchApi]);
-    
   };
 
   useEffect(()=>{

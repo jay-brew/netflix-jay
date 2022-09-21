@@ -13,16 +13,15 @@ const MovieDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const location = useLocation();
   const item = location.state.item;
-  const {genreList} = useSelector((store)=>store.movie);
   const [movieApiData, setMovieApiData] = useState("");
   const [genreListApi, setGenreListApi] = useState("");
   const [reviewApi, setReviewApi] = useState("");
   const [realtedApi, setRealtedApi] = useState("");
   const [movieVedioApi, setMovieVedioApi] = useState("");
   const [reviewDiv, setReviewDiv] = useState("Review");
+
   class Example extends React.Component {
     render() {
       const opts = {
