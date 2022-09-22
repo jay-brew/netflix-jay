@@ -24,13 +24,15 @@ const responsive = {
 };
 
 
-const MovieSlide = ({movies}) => {
+const MovieSlide = ({movies, path}) => {
   return (
     <div>
       <Carousel responsive={responsive}> 
-        {movies.results.map((item, index)=>(
-          <MovieCard item={item} key={index}/>
-        ))}
+        {
+          movies.results.map((item, index)=>(
+            path === "moveDetail" ? <MovieCard item={item} key={index} path={'moveDetail'}/> : <MovieCard item={item} key={index}/>
+          ))
+        }
       </Carousel>
     </div>
   )

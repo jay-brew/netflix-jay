@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '../component/Dropdown';
 import MovieCard from '../component/MovieCard';
@@ -107,12 +107,15 @@ const Movies = () => {
         <Button variant="outline-danger" onClick={()=>{test()}}>Search</Button>
       </Form>
         <Button variant="outline-danger" onClick={()=>{filter()}}>3.0/2.1/5.3/8.5/10평점 기준 필터</Button>
-
-      <div>
-        {Object.keys(popularMovies).length !== 0&&popularMovies.results.map((item,index) => (
-          <MovieCard item={item} key={index} />
-        ))}
-      </div>
+        <div>
+          <Row xs={1} md={2} className="g-4">
+              {Object.keys(popularMovies).length !== 0&&popularMovies.results.map((item,index) => (
+                <Col lg={5} key={index}>
+                  <MovieCard item={item} key={index} />
+                </Col>
+              ))}
+          </Row>
+        </div>
       <div>
         <a onClick={(e)=>{nextPrevFunction(e.target.text)}}>{'<<'}</a><a onClick={(e)=>{nextPrevFunction(e.target.text)}}>{'<'}</a>
           {showPageNum.map((item,index) => (
