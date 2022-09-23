@@ -64,10 +64,15 @@ body {
 .detailCard{
   cursor: pointer;
   width : 250px;
-  height: 140px !important;
+  height: 200px !important;
   border: 3px solid red !important;
   margin-left: 35px;
   margin-bottom: 30px;
+}
+
+.moviesCard{
+  width : 250px;
+  height: 140px !important;
 }
 
 .badge{

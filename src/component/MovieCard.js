@@ -17,6 +17,9 @@ const MovieCard = ({item,path}) => {
     firstPath='https://www.themoviedb.org/t/p/w250_and_h141_face';
     cardClass='detailCard';
   }
+  if(path==="movies"){
+    cardClass='moviesCard';
+  }
 
   const moveDetailPage = (item) => {
     navigate("/movies/"+item.id, {state:{item:item}});

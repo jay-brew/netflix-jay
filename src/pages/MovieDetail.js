@@ -135,7 +135,7 @@ const MovieDetail = () => {
               Review({reviewApi&&reviewApi.length+')'}
             </a>
             <a style={{border:"2px solid red", margin:"0px 10px 0px 0px ", cursor:"pointer", padding:"5px 5px 5px 5px"}} onClick={(e)=>reViewDivShowHide(e.target.text)}>
-              RELATED MOVIES
+              RELATED MOVIES({realtedApi&&realtedApi.results.length+')'}
             </a>
           </h2>
         </div>
