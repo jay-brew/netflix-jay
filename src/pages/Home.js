@@ -10,6 +10,7 @@ const Home = () => {
   const [movieVedioApi, setMovieVedioApi] = useState("");
   const dispatch = useDispatch();
   const {popularMovies, topRatedMovies, upcomingMovies, loading} = useSelector(state=>state.movie);
+
   
   useEffect(()=>{
     dispatch(movieAction.getMovies());
@@ -23,7 +24,7 @@ const Home = () => {
   return (
     <div>
       {/* Banner 와 MovieSlide 컴포넌트를 사용, 그리고 movie 와 movies라는 props를 생성*/}
-      <Banner movie={popularMovies.results[1]}/>
+      <Banner movie={popularMovies.results[Math.floor(Math.random()*JSON.stringify(popularMovies.results.length))]}/>
       <h1 style={{marginLeft:"35px"}}>Popular Movies</h1>
       <MovieSlide movies={popularMovies}/>
       <h1 style={{marginLeft:"35px"}}>TopRated Movies</h1>

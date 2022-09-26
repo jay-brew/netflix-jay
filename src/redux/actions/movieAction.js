@@ -35,11 +35,12 @@ function movieTrailer(item){
             const movieTrailerApi = api.get(`/movie/${item.id}/videos?api_key=${API_KEY}&language=en-US`);
             
             let [movieTrailer] = await Promise.all([movieTrailerApi]);
+            let randomNumber = Math.floor(Math.random()*movieTrailer.data.results.length)
 
             dispatch({
                 type : "GET_MOVIES_TRAILER",
                 payload : {
-                    movieTrailer:movieTrailer.data.results[6].key
+                    movieTrailer:movieTrailer.data.results[randomNumber].key
                 }
             })
         } catch (error) {

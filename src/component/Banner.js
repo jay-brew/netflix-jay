@@ -8,14 +8,13 @@ const Banner = ({movie}) => {
   const {movieTrailer} = useSelector(state=>state.movie);
   const [movieTrailerApi, setMovieTrailer] = useState("");
   
-  const setMovieTrailerFunction = () => {
-    setMovieTrailer(movieTrailer)
-  }
-
   useEffect(() => {
     dispatch(movieAction.movieTrailer(movie));
     setMovieTrailerFunction();
-  }, [])
+  },[])
+  const setMovieTrailerFunction = () => {
+    setMovieTrailer(movieTrailer)
+  }
 
   class Example extends React.Component {
     render() {
