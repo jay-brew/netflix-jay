@@ -24,7 +24,26 @@ function getMovies(pageNum){
                 }
             })
         } catch (error) {
-            dispatch({type:"GET_MOVIES_FAILURE"})
+            dispatch({type:"GET_MOVIES_FAILURE"});
+        }
+    }
+};
+
+function releaseDate(min,max){
+    return async(dispatch) => {
+        try {
+            const popularMovieApi = api.get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&include_adult=false&page=1&primary_release_date.gte=${min}&primary_release_date.lte=${max}`);
+            
+            let [popularMovies] = await Promise.all([popularMovieApi]);
+
+            dispatch({
+                type : "GET_MOVIES_RELEASEDATE",
+                payload : {
+                    popularMovies:popularMovies.data
+                }
+            })
+        } catch (error) {
+            dispatch({type:"GET_MOVIES_FAILURE"});
         }
     }
 };
@@ -35,23 +54,22 @@ function movieTrailer(item){
             const movieTrailerApi = api.get(`/movie/${item.id}/videos?api_key=${API_KEY}&language=en-US`);
             
             let [movieTrailer] = await Promise.all([movieTrailerApi]);
-            let randomNumber = Math.floor(Math.random()*movieTrailer.data.results.length)
 
             dispatch({
                 type : "GET_MOVIES_TRAILER",
                 payload : {
-                    movieTrailer:movieTrailer.data.results[randomNumber].key
+                    movieTrailer:movieTrailer.data.results[3].key
                 }
             })
         } catch (error) {
-            dispatch({type:"GET_MOVIES_FAILURE"})
+            dispatch({type:"GET_MOVIES_FAILURE"});
         }
     }
 };
 
 
-
 export const movieAction = {
     getMovies,
-    movieTrailer
+    movieTrailer,
+    releaseDate
 }

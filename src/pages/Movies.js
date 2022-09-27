@@ -5,7 +5,7 @@ import Dropdown from '../component/Dropdown';
 import MovieCard from '../component/MovieCard';
 import { movieAction } from '../redux/actions/movieAction';
 import InputRange from 'react-input-range';
-import 'react-input-range/lib/css/index.css'
+import 'react-input-range/lib/css/index.css'  
 import api from '../redux/api';
 
 const API_KEY=process.env.REACT_APP_API_KEY;
@@ -22,11 +22,21 @@ const Movies = () => {
   const [showPageNum, setShowPageNum] = useState([]);
 
   const [rangeState, setRangeState] = useState({});
-  
+
   let [genresBtnValue, setGenresBtnValue] = useState('All');
 
   const dispatch = useDispatch();
   const {popularMovies, genreList} = useSelector(state=>state.movie);
+  console.log(rangeState.length)
+  
+  useEffect(()=>{
+    if(rangeState.length!==undefined){dispatch(movieAction.releaseDate(rangeState.value.min, rangeState.value.max))}
+    // console.log("hihihi :" + rangeState.value.min);
+    // if(rangeState!==0){
+      // console.log(rangeState)
+      // dispatch(movieAction.releaseDate(rangeState.value.min, rangeState.value.max));
+    // }
+  },[rangeState]);
 
   const getMovieApi = async() => {
     try {
@@ -58,7 +68,7 @@ const Movies = () => {
     }
     let rangeStateUpdtate = {value: { min: 1990, max: 2022 }}
     setRangeState(rangeStateUpdtate);
-
+    dispatch(movieAction.releaseDate(rangeStateUpdtate.value.min, rangeStateUpdtate.value.max))
   },[pageNum]);
 
   // useEffect(()=>{
@@ -153,6 +163,7 @@ const Movies = () => {
       setGenreFilterList([]);
     }
   }
+
 
   return (
     <div style={{display:"flex"}}>
