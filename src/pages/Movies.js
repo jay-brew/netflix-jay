@@ -10,32 +10,38 @@ import api from '../redux/api';
 
 const API_KEY=process.env.REACT_APP_API_KEY;
 const Movies = () => {
+  // search
   const [keyword, setKeyword] = useState("");
   const [searchMovies, setSearchMovies] = useState([]);
   
+  // sort
   const [sort, setSort] = useState("");
   
+  // filter
   const [genreFilterList, setGenreFilterList] = useState("");
 
+  // page
   const [pageNum,setPageNum] = useState(1);
   const [totalPageNum,setTotalPageNum] = useState(0);
   const [showPageNum, setShowPageNum] = useState([]);
 
+  // range
   const [rangeState, setRangeState] = useState({});
 
+  // genresButton
   let [genresBtnValue, setGenresBtnValue] = useState('All');
 
+  // useDispatch, useSelector
   const dispatch = useDispatch();
   const {popularMovies, genreList} = useSelector(state=>state.movie);
-  console.log(rangeState.length)
-  
+
   useEffect(()=>{
-    if(rangeState.length!==undefined){dispatch(movieAction.releaseDate(rangeState.value.min, rangeState.value.max))}
-    // console.log("hihihi :" + rangeState.value.min);
-    // if(rangeState!==0){
-      // console.log(rangeState)
-      // dispatch(movieAction.releaseDate(rangeState.value.min, rangeState.value.max));
-    // }
+    if(Object.keys(rangeState).length !== 0){
+      dispatch(movieAction.releaseDate(rangeState.value.min, rangeState.value.max))
+    } else {
+      let rangeStateUpdtate = {value: { min: 1990, max: 2022 }}
+      setRangeState(rangeStateUpdtate);
+    }
   },[rangeState]);
 
   const getMovieApi = async() => {
@@ -43,6 +49,7 @@ const Movies = () => {
       let showPageNumArray = new Array();
       const searchApi = api.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`);
       let [searchMovies] = await Promise.all([searchApi]);
+
       if(searchMovies.data.total_pages !== 0 && searchMovies.data.total_pages < 6) {
         for(let i=1; i<searchMovies.data.total_pages+1; i++){
           showPageNumArray.push(i);
@@ -66,20 +73,15 @@ const Movies = () => {
     if(popularMovies.total_pages > 6){
       setShowPageNum([1,2,3,4,5]);
     }
-    let rangeStateUpdtate = {value: { min: 1990, max: 2022 }}
-    setRangeState(rangeStateUpdtate);
-    dispatch(movieAction.releaseDate(rangeStateUpdtate.value.min, rangeStateUpdtate.value.max))
   },[pageNum]);
-
-  // useEffect(()=>{
-
-  // },[genreClickValue]);
 
   useEffect(()=>{
     if(keyword !== ""){
       setGenresBtnValue('All');
       setGenreFilterList([]);
       getMovieApi();
+    } else {
+      setSearchMovies([])
     }
   },[keyword]);  
 
@@ -209,7 +211,7 @@ const Movies = () => {
           <Row xs={1} md={2} style={{justifyContent:"center", marginBottom:"40px"}}>
               {
                 searchMovies.length===0&&genreFilterList.length===0
-                ?                 
+                ?
                   Object.keys(popularMovies).length !== 0&&popularMovies.results.map((item,index) => (
                     <Col lg={3} key={index}>
                       {genresBtnValue !== "All" ? '' : <MovieCard item={item} key={index} path={"movies"}/>}
@@ -224,7 +226,7 @@ const Movies = () => {
                     </Col>
                   ))
                 :
-                  Object.keys(searchMovies).length !== 0&&searchMovies.data.results.map((item,index) => (
+                  searchMovies.data.results.map((item,index) => (
                     <Col lg={3} key={index}>
                       <MovieCard item={item} key={index} path={"movies"}/>
                     </Col>

@@ -13,6 +13,7 @@ import MovieSlide from '../component/MovieSlide';
 
 const API_KEY=process.env.REACT_APP_API_KEY;
 const MovieDetail = () => {
+  
   // 모달 - 유튜브 영상 보여주기
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,42 +26,41 @@ const MovieDetail = () => {
   const [genreListApi, setGenreListApi] = useState("");
   const [reviewApi, setReviewApi] = useState("");
   const [realtedApi, setRealtedApi] = useState("");
-  // const [movieVedioApi, setMovieVedioApi] = useState("");
+  const [movieVedioApi, setMovieVedioApi] = useState("");
   const [reviewDiv, setReviewDiv] = useState("Review");
 
-
-  // class Example extends React.Component {
-  //   render() {
-  //     const opts = {
-  //       height: '390',
-  //       width: '640',
-  //       playerVars: {
-  //         autoplay: 1,
-  //       },
-  //     };
+  class Example extends React.Component {
+    
+    render() {
+      const opts = {
+        height: '390',
+        width: '765',
+        playerVars: {
+          autoplay: 1,
+        },
+      };
+      
+      return <YouTube videoId={movieVedioApi} opts={opts}  />;
+    }
   
-  //     return <YouTube videoId={movieVedioApi} opts={opts}  />;
-  //   }
-  
-  //   _onReady(event) {
-  //     event.target.pauseVideo();
-  //   }
-  // };
+    _onReady(event) {
+      event.target.pauseVideo();
+    }
+  };
 
   const getMovieApi = async() => {
     const getMovieApi = api.get(`/movie/${item.id}?api_key=${API_KEY}&language=en-US`);
     const getGenreListApi = api.get(`/genre/movie/list?api_key=${API_KEY}&language=en-US`);
     const getReviewApi = api.get(`/movie/${item.id}/reviews?api_key=${API_KEY}&language=en-US`);
     const getRealtedApi = api.get(`/movie/${item.id}/recommendations?api_key=${API_KEY}&language=en-US`);
-    // const getMovieVedioApi = api.get(`/movie/${item.id}/videos?api_key=${API_KEY}&language=en-US`);
+    const getMovieVedioApi = api.get(`/movie/${item.id}/videos?api_key=${API_KEY}&language=en-US`);
 
-    //let [movieApi, genreApi, reviewApi, realtedApi, movieVedioApi] = await Promise.all([getMovieApi, getGenreListApi, getReviewApi, getRealtedApi, getMovieVedioApi]);
-    let [movieApi, genreApi, reviewApi, realtedApi] = await Promise.all([getMovieApi, getGenreListApi, getReviewApi, getRealtedApi]);
+    let [movieApi, genreApi, reviewApi, realtedApi, movieVedioApi] = await Promise.all([getMovieApi, getGenreListApi, getReviewApi, getRealtedApi, getMovieVedioApi]);
     setMovieApiData(movieApi.data);
     setGenreListApi(genreApi.data.genres);
     setReviewApi(reviewApi.data.results);
     setRealtedApi(realtedApi.data);
-    // setMovieVedioApi(movieVedioApi.data.results[0].key);
+    setMovieVedioApi(movieVedioApi.data.results[0].key);
   };
 
   const reViewDivShowHide = (clickValue) => {
@@ -137,6 +137,9 @@ const MovieDetail = () => {
             <a style={{border:"2px solid red", margin:"0px 10px 0px 0px ", cursor:"pointer", padding:"5px 5px 5px 5px"}} onClick={(e)=>reViewDivShowHide(e.target.text)}>
               RELATED MOVIES({realtedApi&&realtedApi.results.length+')'}
             </a>
+            <Button variant="primary" onClick={handleShow}>
+              영화 예고편 보기
+            </Button>
           </h2>
         </div>
         <div className='reviewRelatedMovies_Box'>
@@ -163,7 +166,6 @@ const MovieDetail = () => {
               ))}
             </div> 
             :
-            
             <div>
               {!realtedApi.results ? 
                 <h3>추천영화가 없습니다.</h3> 
@@ -176,12 +178,10 @@ const MovieDetail = () => {
           }
         </div>
       </div>
-      {/* <>
-        <Button variant="primary" onClick={handleShow}>
-          영화 예고편 보기
-        </Button>
+      <>
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Body>
+            <Example />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -192,7 +192,7 @@ const MovieDetail = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </> */}
+      </>
     </div>
   )
 }

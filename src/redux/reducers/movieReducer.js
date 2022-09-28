@@ -33,6 +33,11 @@ function movieReducer(state = initialState, action){
                 ...state,
                 movieTrailer : payload.movieTrailer
             }
+            case "GET_MOVIES_RELEASEDATE" :
+                return {
+                    ...state,
+                    popularMovies : payload.popularMovies,
+                }
         default : 
             return {...state};
     }

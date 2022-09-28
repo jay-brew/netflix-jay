@@ -7,14 +7,15 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Footer from '../component/Footer';
 
 const Home = () => {
-  const [movieVedioApi, setMovieVedioApi] = useState("");
   const dispatch = useDispatch();
   const {popularMovies, topRatedMovies, upcomingMovies, loading} = useSelector(state=>state.movie);
-
   
+  console.log(popularMovies)
+
   useEffect(()=>{
-    dispatch(movieAction.getMovies());
-    setMovieVedioApi('')
+    if(popularMovies!==undefined){
+      dispatch(movieAction.getMovies());
+    }
   },[]);
 
   if(loading){
@@ -23,17 +24,18 @@ const Home = () => {
 
   return (
     <div>
-      {/* Banner 와 MovieSlide 컴포넌트를 사용, 그리고 movie 와 movies라는 props를 생성*/}
-      <Banner movie={popularMovies.results[Math.floor(Math.random()*JSON.stringify(popularMovies.results.length))]}/>
+      <Banner movie={popularMovies&&popularMovies.results[2]}></Banner>
       <h1 style={{marginLeft:"35px"}}>Popular Movies</h1>
-      <MovieSlide movies={popularMovies}/>
+      <MovieSlide movies={popularMovies&&popularMovies}/>
       <h1 style={{marginLeft:"35px"}}>TopRated Movies</h1>
-      <MovieSlide movies={topRatedMovies} />
+      <MovieSlide movies={topRatedMovies&&topRatedMovies} />
       <h1 style={{marginLeft:"35px"}}>Upcoming Movies</h1>
-      <MovieSlide movies={upcomingMovies} />
+      <MovieSlide movies={upcomingMovies&&upcomingMovies} />
       <Footer />
     </div>
   )
 }
+
+
 
 export default Home
