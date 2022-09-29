@@ -23,7 +23,7 @@ const Banner = ({movie}) => {
         height: '600',
         width: '100%',
         playerVars: {
-          autoplay: 1,        // 자동재생 O
+          autoplay: 1,        // 자동재생 O 
           rel: 0,             // 관련 동영상 표시하지 않음
           modestbranding: 1,  // 컨트롤 바에 youtube 로고를 표시하지 않음
           controls:0,
